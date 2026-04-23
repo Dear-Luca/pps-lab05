@@ -32,7 +32,7 @@ object Vector2D:
   val i: Vector2D = apply(1.0, 0.0) // Unit vector along x-axis
   val j: Vector2D = apply(0.0, 1.0) // Unit vector along y-axis
 
-  private class Vector2DImpl(private val _x: Double, private val _y: Double) extends Vector2D:
+  private case class Vector2DImpl(private val _x: Double, private val _y: Double) extends Vector2D:
     override def x: Double = _x
 
     override def y: Double = _y
