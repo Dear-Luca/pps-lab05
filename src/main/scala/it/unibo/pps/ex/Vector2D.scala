@@ -25,12 +25,27 @@ trait Vector2D:
 
 object Vector2D:
   // Factory method to create Vector2D instances
-  def apply(x: Double, y: Double): Vector2D = ???
+  def apply(x: Double, y: Double): Vector2D = Vector2DImpl(x, y)
 
   // Common vectors (optional but nice)
   val zero: Vector2D = apply(0.0, 0.0)
   val i: Vector2D = apply(1.0, 0.0) // Unit vector along x-axis
   val j: Vector2D = apply(0.0, 1.0) // Unit vector along y-axis
+
+  private class Vector2DImpl(private val _x: Double, private val _y: Double) extends Vector2D:
+    override def x: Double = _x
+
+    override def y: Double = _y
+
+    override def +(other: Vector2D): Vector2D = Vector2DImpl(other.x + _x, other.y + _y)
+
+    override def -(other: Vector2D): Vector2D = Vector2DImpl(_x - other.x, _y - other.y)
+
+    override def *(scalar: Double): Vector2D = Vector2DImpl(_x * scalar, _y * scalar)
+
+    override def dot(other: Vector2D): Double = other.x * _x + other.y * _y
+
+    override def magnitude: Double = sqrt(_x * _x + _y * _y)
 
 
 /** Hints:
@@ -77,3 +92,6 @@ object Vector2D:
   // sum * 3.0 = (6.0, 18.0)
   // (6.0, 18.0) - (1.0, 1.0) = (5.0, 17.0)
   println(s"Multiple Ops: $multipleOps, x: ${multipleOps.x}, y: ${multipleOps.y}")
+
+  println("Check toString: " + Vector2D(1, 2))
+  println("Check equals: " + (Vector2D(1, 2) == Vector2D(1, 2)))
