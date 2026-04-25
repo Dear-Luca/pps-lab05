@@ -44,6 +44,7 @@ object Sequences: // Essentially, generic linkedlists
         case x if f(x) => Cons(x, Nil())
         case _ => Nil()
 
+      @tailrec
       def find(f: A => Boolean): Optional[A] = sequence match
         case Cons(h, t) if f(h) => Just(h)
         case Cons(_, t) => t.find(f)
@@ -55,13 +56,6 @@ object Sequences: // Essentially, generic linkedlists
         case Cons(h, t) => t.reverse().concat(Cons(h, Nil()))
         case _ => Nil()
 
-      def size: Int =
-        @tailrec
-        def _size(s: Sequence[A], acc: Int): Int = s match
-          case Cons(_, t) => _size(t, acc + 1)
-          case _ => acc
-
-        _size(sequence, 0)
 
 
 @main def trySequences =
